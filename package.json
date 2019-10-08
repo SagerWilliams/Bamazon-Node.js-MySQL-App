@@ -1,0 +1,23 @@
+{
+  "name": "Bamazon-Node.js-MySQL-App",
+  "version": "1.0.0",
+  "description": "Bamazon is an Amazon-like storefront using MySQL for the database and Node.js for terminal based actions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SagerWilliams/Bamazon-Node.js-MySQL-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SagerWilliams/Bamazon-Node.js-MySQL-App/issues"
+  },
+  "homepage": "https://github.com/SagerWilliams/Bamazon-Node.js-MySQL-App#readme",
+  "dependencies": {
+    "mysql": "^2.17.1"
+  }
+}
