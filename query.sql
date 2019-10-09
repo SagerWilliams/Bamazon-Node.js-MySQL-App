@@ -16,7 +16,16 @@ CREATE TABLE products (
 
 -- create new rows
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ();
+VALUES  ("Keyboard", "Tech Equipment", 120, 5),
+        ("Mouse", "Tech Equipment", 80, 1),
+        ("Mouse Pad", "Tech Equipment", 15, 0),
+        ("GeForce GTX 1080 Ti", "Tech Component", 1350, 1),
+        ("ROG 144hz 1ms Monitor", "Tech Equipment", 425, 2),
+        ("Webcam", "Tech Equipment", 50, 4),
+        ("Tripod", "Camera Equipment", 25, 1),
+        ("Standing Desk", "Office Furniture", 700, 1),
+        ("Bang Energy Drink", "Energy Drinks", 3, 100),
+        ("Doritos", "Snack Foods", 2, 250);
 
 -- read rows
 SELECT * FROM products;
