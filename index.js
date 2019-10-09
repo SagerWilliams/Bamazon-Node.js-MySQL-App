@@ -12,32 +12,62 @@ var connection = mysql.createConnection({
     database: "bamazon"
 });
 
-var productArr = [];
-
 // connect to database
 connection.connect(function (err) {
     if (err) throw err;
     // run the start function after the connection is made to prompt the user
     console.log("Connected!");
-    connection.query("SELECT product_name FROM products", function (err, results) {
+    getProductInfo();
+});
+
+var productArr = [];
+var productName = [];
+var productDepartment = [];
+var productPrice = [];
+var productStock = [];
+function getProductInfo() {
+    connection.query("SELECT * FROM products", function (err, results) {
         if (err) throw err;
-        
+
         for (var i = 0; i < results.length; i++) {
-            productArr.push(results[i].product_name);
+            productName.push(results[i].product_name);
+            productDepartment.push(results[i].department_name);
+            productPrice.push(results[i].price);
+            productStock.push(results[i].stock_quantity);
+        }
+        for (var j = 0; j < productName.length; j++) {
+            productArr.push("Product: " + productName[j] + " | Department: " + productDepartment[j] + " | Price: $" + productPrice[j] + " | Stock Left: " + productStock[j]);
         }
         start();
     });
-});
+}
 
 function start() {
-    inquirer
-        .prompt({
+    inquirer.prompt({
             name: "product",
             type: "list",
             message: "Which product would you like to buy?",
-            choices: productArr
+            choices: productName
         })
-        .then(function (answer) {
-            
+        .then(function (choice) {
+            connection.query("SELECT * FROM products WHERE product_name = " + '"' + choice.product + '"', function (err, results) {
+                if (err) throw err;
+                console.log("Department: " + results[0].department_name);
+                console.log("Price: $" + results[0].price);
+                console.log("Stock Remaining: " + results[0].stock_quantity + " units");
+
+                inquirer.prompt({
+                    name: "confirm",
+                    type: "confirm",
+                    message: "Are you sure you would like to purchase this product?"
+                })
+                .then(function (decision) {
+                    connection.query("SELECT * FROM products WHERE product_name = " + '"' + choice.product + '"', function (err, results) {
+                        if (err) throw err;
+                        // update units and cb start
+                        console.log(decision);
+                    });
+                });
+            });
         });
 }
