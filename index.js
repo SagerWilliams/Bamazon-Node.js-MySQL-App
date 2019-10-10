@@ -65,7 +65,27 @@ function start() {
                     connection.query("SELECT * FROM products WHERE product_name = " + '"' + choice.product + '"', function (err, results) {
                         if (err) throw err;
                         // update units and cb start
-                        console.log(decision);
+                        if (decision.confirm) {
+                            connection.query("UPDATE products SET stock_quantity =" + (results[0].stock_quantity -= 1) + " WHERE item_id =" + results[0].item_id, function (err, results) {
+                                if (err) throw err;
+                                console.log("Product has been purchased!");
+                                inquirer.prompt({
+                                    name: "choice",
+                                    type: "confirm",
+                                    message: "Would you like to purchase another product?"
+                                })
+                                .then(function(choice) {
+                                    if (choice.choice) {
+                                        start();
+                                    } else {
+                                        console.log("Thanks for shopping!")
+                                        connection.end();
+                                    }
+                                });
+                            });
+                        } else {
+                            connection.end();
+                        }
                     });
                 });
             });
