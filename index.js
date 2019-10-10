@@ -21,7 +21,6 @@ connection.connect(function (err) {
 });
 
 // variables storing information for each product that can be bought
-var productArr = [];
 var productName = [];
 var productDepartment = [];
 var productPrice = [];
